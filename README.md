@@ -2,6 +2,49 @@
 
 <h4 align="center">kubectl-ccsecret extension prompts input box to user while creating secrets to prevent leakages through terminal history, etc</h4>
 
+## Why to use
+
+### Problem statement
+
+Analyze the examples below
+
+```console
+$ kubectl create secret generic my-secret --from-literal key1=value1 --from-literal key2=value2
+```
+
+```console
+$ kubectl create secret docker-registry my-secret --docker-password s3cur3D0ck3rP@ssw0rD
+```
+
+`kubectl create secret` has a few sub-commands we use most often that can possibly leak sensitive information in multiple ways like terminal history, shoulder surfing, etc.
+
+### Proposed solution
+
+`kubectl ccsecret` plugin prompts users to provide inputs for fields that might possibly contain sensitive information like `--from-literal` and `--docker-password`
+
+```console
+$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
+Enter value for key1: ******
+Enter value for key2: ******
+```
+
+```console
+$ kubectl ccsecret docker-registry my-secret --docker-password
+Enter value for docker password: ******
+```
+
+```console
+$ kubectl ccsecret docker-registry my-secret --docker-password --verbose
+Enter value for docker password: ******
+[+] Executing kubectl create docker-registry my-secret --docker-password abcdef
+```
+
+```console
+$ kubectl ccsecret docker-registry my-secret --docker-password --print-only
+Enter value for docker password: ******
+[*] Generated: kubectl create docker-registry my-secret --docker-password abcdef
+```
+
 ## Usage
 
 ```console
@@ -40,35 +83,3 @@ Use "kubectl-ccsecret [command] --help" for more information about a command.
 ## Examples
 
 TBD
-
-## Why to use
-
-### Problem statement
-
-Analyze the examples below
-
-```console
-$ kubectl create secret generic my-secret --from-literal key1=value1 --from-literal key2=value2
-```
-
-```console
-$ kubectl create secret docker-registry my-secret --docker-password s3cur3D0ck3rP@ssw0rD
-```
-
-`kubectl create secret` has a few sub-commands we use most often that leak sensitive information in multiple ways like terminal history, shoulder surfing, etc.
-
-### Current solution
-
-This plugin prompts users to provide inputs for fields that might possibly contain sensitive information like `--from-literal` and `--docker-password`
-
-```console
-$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
-Enter value for key1: ******
-Enter value for key2: ******
-```
-
-```console
-$ kubectl ccsecret docker-password my-secret --docker-password
-Enter value for docker password: ******
-```
-
