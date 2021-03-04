@@ -25,25 +25,26 @@ import (
 
 var (
 	verboseFlag             bool
+	printOnlyFlag           bool
 	rootCmdDescriptionShort = "Create kubectl secrets by taking sensitive input from console"
-	rootCmdDescriptionLong  = `"kubectl create-console-secret" creates kubectl secrets by taking sensitive input from console.
-More info: https://github.com/rewanth1997/kubectl-create-console-secret`
+	rootCmdDescriptionLong  = `"kubectl ccsecret" creates kubectl secrets by capturing sensitive input from console.
+More info: https://github.com/rewanth1997/kubectl-ccsecret`
 	rootCmdExamples = `
 Create generic secret in default namespace:
-$ kubectl create-console-secret generic my-secret --from-literal key1 --from-literal key2
+$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
 
 Provide non-existing/unknown flags after double hypen (--)
 
 Create generic secret in test namespace:
-$ kubectl create-console-secret generic my-secret --from-literal key1 --from-literal key2 -- -n test
+$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2 -- -n test
 
 Create docker-registry secret in default namespace:
-$ kubectl create-console-secret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL`
+$ kubectl ccsecret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL`
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:     "kubectl-create-console-secret",
+	Use:     "kubectl-ccsecret",
 	Short:   rootCmdDescriptionShort,
 	Long:    rootCmdDescriptionLong,
 	Example: rootCmdExamples,

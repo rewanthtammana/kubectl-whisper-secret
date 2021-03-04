@@ -28,16 +28,16 @@ import (
 
 var (
 	genericCmdDescriptionShort = "Create generic secrets by taking input from console"
-	genericCmdDescriptionLong  = `"kubectl create-console-secret generic" takes secret values for given keys as input from user console 
-More info: https://github.com/rewanth1997/kubectl-create-console-secret`
+	genericCmdDescriptionLong  = `"kubectl ccsecret generic" takes secret values for given keys as input from user console 
+More info: https://github.com/rewanth1997/kubectl-ccsecret`
 	genericCmdExamples = `
 Create generic secret in default namespace:
-$ kubectl create-console-secret generic my-secret --from-literal key1 --from-literal key2
+$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
 	
 Provide required non-existing/unknown options after double hypen (--)
 
 Create generic secret in test namespace:
-$ kubectl create-console-secret generic my-secret --from-literal key1 --from-literal key2 -- -n test`
+$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2 -- -n test`
 	fromLiteralArr []string
 )
 
@@ -61,19 +61,24 @@ var genericCmd = &cobra.Command{
 
 		tail := joinArgsWithKey("--from-literal", fromLiteralArr)
 
+		if printOnlyFlag {
+			// kubectl create-secret generic <secret-name> --from-literal secret1 --from-literal secret2 -n test
+			fmt.Println("[*] Generated:", "kubectl", "create", "secret", "generic", args[0], tail, strings.Join(args[1:], " "))
+			return
+		}
+
 		if verboseFlag {
 			// kubectl create-secret generic <secret-name> --from-literal secret1 --from-literal secret2 -n test
 			fmt.Println("[+] Executing", "kubectl", "create", "secret", "generic", args[0], tail, strings.Join(args[1:], " "))
 		}
 
-		return
 		output, err := exec.Command("kubectl", "create", "secret", "generic", args[0], tail, strings.Join(args[1:], " ")).Output()
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 
-		fmt.Println("Output = ", output)
+		fmt.Println(output)
 	},
 }
 
@@ -82,4 +87,5 @@ func init() {
 	rootCmd.AddCommand(genericCmd)
 	genericCmd.Flags().StringArrayVarP(&fromLiteralArr, "from-literal", "", []string{}, "From literal")
 	genericCmd.Flags().BoolVarP(&verboseFlag, "verbose", "v", false, "Prints the final kubectl execution command")
+	genericCmd.Flags().BoolVarP(&printOnlyFlag, "print-only", "p", false, "Only prints the final execution command (dry run)")
 }

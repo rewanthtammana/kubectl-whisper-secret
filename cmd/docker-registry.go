@@ -29,16 +29,16 @@ import (
 var (
 	dockerPasswordFlag                bool
 	dockerRegistryCmdDescriptionShort = "Take docker-registry password input from console"
-	dockerRegistryCmdDescriptionLong  = `"kubectl create-console-secret docker-registry" takes docker-password value from console 
-More info: https://github.com/rewanth1997/kubectl-create-console-secret`
+	dockerRegistryCmdDescriptionLong  = `"kubectl ccsecret docker-registry" takes docker-password value from console 
+More info: https://github.com/rewanth1997/kubectl-ccsecret`
 	dockerRegistryCmdExamples = `
 Provide required non-existing/unknown options after double hypen (--)
 
 Create docker-registry secret in default namespace:
-$ kubectl create-console-secret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL
+$ kubectl ccsecret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL
 
 Create docker-registry secret in test namespace:
-$ kubectl create-console-secret docker-registry my-secret --docker-password -- -n test --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL`
+$ kubectl ccsecret docker-registry my-secret --docker-password -- -n test --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL`
 	tail           = ""
 	dockerPassword string
 )
@@ -57,18 +57,22 @@ var dockerRegistryCmd = &cobra.Command{
 			tail = fmt.Sprintf(" --docker-password %s ", dockerPassword)
 		}
 
+		if printOnlyFlag {
+			fmt.Println("[*] Generated:", "kubectl", "create", "secret", "docker-registry", args[0], tail, strings.Join(args[1:], " "))
+			return
+		}
+
 		if verboseFlag {
 			fmt.Println("[+] Executing", "kubectl", "create", "secret", "docker-registry", args[0], tail, strings.Join(args[1:], " "))
 		}
 
-		return
 		output, err := exec.Command("kubectl", "create", "secret", "docker-registry", args[0], tail, strings.Join(args[1:], " ")).Output()
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 
-		fmt.Println("Output = ", output)
+		fmt.Println(output)
 	},
 }
 
@@ -77,4 +81,5 @@ func init() {
 	rootCmd.AddCommand(dockerRegistryCmd)
 	dockerRegistryCmd.Flags().BoolVarP(&dockerPasswordFlag, "docker-password", "", false, "Docker password")
 	dockerRegistryCmd.Flags().BoolVarP(&verboseFlag, "verbose", "v", false, "Prints the final kubectl execution command")
+	dockerRegistryCmd.Flags().BoolVarP(&printOnlyFlag, "print-only", "p", false, "Only prints the final execution command (dry run)")
 }
