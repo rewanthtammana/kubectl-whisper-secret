@@ -27,19 +27,20 @@ var (
 	verboseFlag             bool
 	printOnlyFlag           bool
 	rootCmdDescriptionShort = "Create kubectl secrets by taking sensitive input from console"
-	rootCmdDescriptionLong  = `"kubectl ccsecret" creates kubectl secrets by capturing sensitive input from console.
+	rootCmdDescriptionLong  = `"kubectl ccsecret" allows users to create kubectl secrets by taking sensitive input from the console.
 More info: https://github.com/rewanth1997/kubectl-ccsecret`
 	rootCmdExamples = `
 Create generic secret in default namespace:
 $ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
 
-Provide non-existing/unknown flags after double hypen (--)
+Provide non-supported ccsecret flags/options after double hypen (--)
 
 Create generic secret in test namespace:
 $ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2 -- -n test
 
-Create docker-registry secret in default namespace:
-$ kubectl ccsecret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL`
+More examples:
+$ kubectl ccsecret generic -h
+$ kubectl ccsecret docker-registry -h`
 )
 
 // rootCmd represents the base command when called without any subcommands

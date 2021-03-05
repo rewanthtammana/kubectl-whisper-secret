@@ -44,8 +44,9 @@ spec:
       https://github.com/rewanth1997/kubectl-ccsecret
   shortDescription: Create kubectl secrets by taking sensitive input from console
   description: |
-    kubectl-ccsecret extension prompts input box to user while creating secrets
-    to prevent leakages through terminal history, etc
+    kubectl-ccsecret allows users to create kubectl secrets by taking sensitive
+    input from the console to prevent information leakages via terminal history,
+    shoulder surfing, etc
     
     More on https://github.com/rewanth1997/kubectl-ccsecret
 

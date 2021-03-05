@@ -20,9 +20,9 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"os/exec"
 	"strings"
 
+	"github.com/rewanth1997/kubectl-ccsecret/pkg/execCmd"
 	"github.com/rewanth1997/kubectl-ccsecret/pkg/stdin"
 )
 
@@ -32,47 +32,50 @@ var (
 	dockerRegistryCmdDescriptionLong  = `"kubectl ccsecret docker-registry" takes docker-password value from console 
 More info: https://github.com/rewanth1997/kubectl-ccsecret`
 	dockerRegistryCmdExamples = `
-Provide required non-existing/unknown options after double hypen (--)
+Provide non-supported ccsecret flags/options after double hypen (--)
 
 Create docker-registry secret in default namespace:
 $ kubectl ccsecret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL
 
 Create docker-registry secret in test namespace:
 $ kubectl ccsecret docker-registry my-secret --docker-password -- -n test --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL`
-	tail           = ""
-	dockerPassword string
+	userDataWithArgs = ""
+	dockerPassword   string
 )
 
 // dockerRegistryCmd represents the base command when called without any subcommands
 var dockerRegistryCmd = &cobra.Command{
-	Use: "docker-registry",
+	Use:     "docker-registry",
 	Short:   dockerRegistryCmdDescriptionShort,
 	Long:    dockerRegistryCmdDescriptionLong,
 	Example: dockerRegistryCmdExamples,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if dockerPasswordFlag {
-			fmt.Print("Enter value for docker password: ")
+			fmt.Println("Enter value for docker password: ")
 			dockerPassword = stdin.GetStdInput()
-			tail = fmt.Sprintf(" --docker-password %s ", dockerPassword)
+			userDataWithArgs = fmt.Sprintf(" --docker-password %s ", dockerPassword)
 		}
 
+		remainingArgs := strings.Join(args[1:], " ")
+		finalCmd := fmt.Sprintf("kubectl create secret docker-registry %s %s %s", args[0], userDataWithArgs, remainingArgs)
+
 		if printOnlyFlag {
-			fmt.Println("[*] Generated:", "kubectl", "create", "secret", "docker-registry", args[0], tail, strings.Join(args[1:], " "))
+			fmt.Printf("[*] Command: %s \n", finalCmd)
 			return
 		}
 
 		if verboseFlag {
-			fmt.Println("[+] Executing", "kubectl", "create", "secret", "docker-registry", args[0], tail, strings.Join(args[1:], " "))
+			fmt.Printf("[+] Command: %s \n", finalCmd)
 		}
 
-		output, err := exec.Command("kubectl", "create", "secret", "docker-registry", args[0], tail, strings.Join(args[1:], " ")).Output()
+		err, stderr, out := execCmd.Run(finalCmd)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Printf("%s\n%s\n", fmt.Sprint(err), stderr.String())
 			return
 		}
 
-		fmt.Println(output)
+		fmt.Println(out.String())
 	},
 }
 

@@ -20,9 +20,9 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"os/exec"
 	"strings"
 
+	"github.com/rewanth1997/kubectl-ccsecret/pkg/execCmd"
 	"github.com/rewanth1997/kubectl-ccsecret/pkg/stdin"
 )
 
@@ -34,7 +34,7 @@ More info: https://github.com/rewanth1997/kubectl-ccsecret`
 Create generic secret in default namespace:
 $ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
 	
-Provide required non-existing/unknown options after double hypen (--)
+Provide non-supported ccsecret flags/options after double hypen (--)
 
 Create generic secret in test namespace:
 $ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2 -- -n test`
@@ -53,32 +53,32 @@ func joinArgsWithKey(keyword string, argsArr []string) string {
 
 // genericCmd represents the base command when called without any subcommands
 var genericCmd = &cobra.Command{
-	Use: "generic",
+	Use:     "generic",
 	Short:   genericCmdDescriptionShort,
 	Long:    genericCmdDescriptionLong,
 	Example: genericCmdExamples,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		tail := joinArgsWithKey("--from-literal", fromLiteralArr)
+		userDataWithArgs := joinArgsWithKey("--from-literal", fromLiteralArr)
+		remainingArgs := strings.Join(args[1:], " ")
+		finalCmd := fmt.Sprintf("kubectl create secret generic %s %s %s", args[0], userDataWithArgs, remainingArgs)
 
 		if printOnlyFlag {
-			// kubectl create-secret generic <secret-name> --from-literal secret1 --from-literal secret2 -n test
-			fmt.Println("[*] Generated:", "kubectl", "create", "secret", "generic", args[0], tail, strings.Join(args[1:], " "))
+			fmt.Printf("[*] Command: %s \n", finalCmd)
 			return
 		}
 
 		if verboseFlag {
-			// kubectl create-secret generic <secret-name> --from-literal secret1 --from-literal secret2 -n test
-			fmt.Println("[+] Executing", "kubectl", "create", "secret", "generic", args[0], tail, strings.Join(args[1:], " "))
+			fmt.Printf("[+] Command: %s \n", finalCmd)
 		}
 
-		output, err := exec.Command("kubectl", "create", "secret", "generic", args[0], tail, strings.Join(args[1:], " ")).Output()
+		err, stderr, out := execCmd.Run(finalCmd)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Printf("%s\n%s\n", fmt.Sprint(err), stderr.String())
 			return
 		}
 
-		fmt.Println(output)
+		fmt.Println(out.String())
 	},
 }
 
