@@ -18,7 +18,7 @@ $ kubectl create secret docker-registry my-secret --docker-password s3cur3D0ck3r
 
 `kubectl create secret` has a few sub-commands we use most often that can possibly leak sensitive information in multiple ways like terminal history, shoulder surfing, etc.
 
-### Proposed solution
+### Proposed solution with examples
 
 `kubectl ccsecret` plugin prompts users to provide inputs for fields that might possibly contain sensitive information like `--from-literal` and `--docker-password`
 
@@ -26,23 +26,26 @@ $ kubectl create secret docker-registry my-secret --docker-password s3cur3D0ck3r
 $ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
 Enter value for key1: ******
 Enter value for key2: ******
+secret/my-secret created
 ```
 
 ```console
-$ kubectl ccsecret docker-registry my-secret --docker-password
+$ kubectl ccsecret docker-registry my-secret --docker-password -- -n test --docker-username admin
 Enter value for docker password: ******
+secret/my-secret created
 ```
 
 ```console
-$ kubectl ccsecret docker-registry my-secret --docker-password --verbose
+$ kubectl ccsecret docker-registry my-secret --docker-password --verbose -- -n test --docker-username admin
 Enter value for docker password: ******
-[+] Executing kubectl create docker-registry my-secret --docker-password abcdef
+[+] Command: kubectl create docker-registry my-secret --docker-password abcdef -n test --docker-username admin
+secret/my-secret created
 ```
 
 ```console
 $ kubectl ccsecret docker-registry my-secret --docker-password --print-only
 Enter value for docker password: ******
-[*] Generated: kubectl create docker-registry my-secret --docker-password abcdef
+[*] Command: kubectl create docker-registry my-secret --docker-password abcdef
 ```
 
 ## Usage
@@ -80,6 +83,3 @@ Flags:
 Use "kubectl-ccsecret [command] --help" for more information about a command.
 ```
 
-## Examples
-
-TBD
