@@ -1,6 +1,6 @@
 # kubectl-ccsecret (create-console-secret)
 
-<h4 align="center">kubectl-ccsecret extension prompts input box to user while creating secrets to prevent leakages through terminal history, etc</h4>
+<h4 align="center">kubectl-ccsecret plugin/command allows users to create kubernetes secrets by taking sensitive input from the console to prevent information leakages via terminal history, shoulder surfing, etc</h4>
 
 ## Why to use
 
