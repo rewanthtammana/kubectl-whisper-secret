@@ -22,23 +22,23 @@ import (
 	"github.com/spf13/cobra"
 	"strings"
 
-	"github.com/rewanth1997/kubectl-ccsecret/pkg/execCmd"
-	"github.com/rewanth1997/kubectl-ccsecret/pkg/stdin"
+	"github.com/rewanth1997/kubectl-whisper-secret/pkg/execCmd"
+	"github.com/rewanth1997/kubectl-whisper-secret/pkg/stdin"
 )
 
 var (
 	dockerPasswordFlag                bool
 	dockerRegistryCmdDescriptionShort = "Take docker-registry password input from console"
-	dockerRegistryCmdDescriptionLong  = `"kubectl ccsecret docker-registry" takes docker-password value from console 
-More info: https://github.com/rewanth1997/kubectl-ccsecret`
+	dockerRegistryCmdDescriptionLong  = `"kubectl whisper-secret docker-registry" takes docker-password value from console 
+More info: https://github.com/rewanth1997/kubectl-whisper-secret`
 	dockerRegistryCmdExamples = `
-Provide non-supported ccsecret flags/options after double hypen (--)
+Provide non-supported whisper-secret flags/options after double hypen (--)
 
 Create docker-registry secret in default namespace:
-$ kubectl ccsecret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL
+$ kubectl whisper-secret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL
 
 Create docker-registry secret in test namespace:
-$ kubectl ccsecret docker-registry my-secret --docker-password -- -n test --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL`
+$ kubectl whisper-secret docker-registry my-secret --docker-password -- -n test --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL`
 	userDataWithArgs = ""
 	dockerPassword   string
 )

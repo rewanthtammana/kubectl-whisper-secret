@@ -7,7 +7,7 @@ VERSION_SUFFIX := ""
 
 COMMIT  := $(shell git describe --always)
 PKGS    := $(shell go list ./...)
-REPO    := github.com/rewanth1997/kubectl-ccsecret
+REPO    := github.com/rewanth1997/kubectl-whisper-secret
 VERSION := v$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)$(VERSION_SUFFIX)
 LDFLAGS := -s -w -X $(REPO)/cmd.version=$(VERSION)
 
@@ -29,21 +29,21 @@ dependency:
 
 build-linux:
 	@echo "Creating Build for Linux..."
-	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Linux-x86_64/kubectl-ccsecret
+	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Linux-x86_64/kubectl-whisper-secret
 	@cp LICENSE ./releases/$(VERSION)/Linux-x86_64
-	@tar zcf ./releases/$(VERSION)/kubectl-ccsecret-Linux-x86_64.tar.gz -C releases/$(VERSION)/Linux-x86_64 kubectl-ccsecret LICENSE
+	@tar zcf ./releases/$(VERSION)/kubectl-whisper-secret-Linux-x86_64.tar.gz -C releases/$(VERSION)/Linux-x86_64 kubectl-whisper-secret LICENSE
 
 build-darwin:
 	@echo "Creating Build for macOS..."
-	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Darwin-x86_64/kubectl-ccsecret
+	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Darwin-x86_64/kubectl-whisper-secret
 	@cp LICENSE ./releases/$(VERSION)/Darwin-x86_64
-	@tar zcf ./releases/$(VERSION)/kubectl-ccsecret-Darwin-x86_64.tar.gz -C releases/$(VERSION)/Darwin-x86_64 kubectl-ccsecret LICENSE
+	@tar zcf ./releases/$(VERSION)/kubectl-whisper-secret-Darwin-x86_64.tar.gz -C releases/$(VERSION)/Darwin-x86_64 kubectl-whisper-secret LICENSE
 
 build-windows:
 	@echo "Creating Build for Windows..."
-	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Windows-x86_64/kubectl-ccsecret.exe
+	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags="$(LDFLAGS)" -o ./releases/$(VERSION)/Windows-x86_64/kubectl-whisper-secret.exe
 	@cp LICENSE ./releases/$(VERSION)/Windows-x86_64
-	@zip -j ./releases/$(VERSION)/kubectl-ccsecret-Windows-x86_64.zip releases/$(VERSION)/Windows-x86_64/kubectl-ccsecret.exe LICENSE
+	@zip -j ./releases/$(VERSION)/kubectl-whisper-secret-Windows-x86_64.zip releases/$(VERSION)/Windows-x86_64/kubectl-whisper-secret.exe LICENSE
 
 build: build-linux build-darwin build-windows
 

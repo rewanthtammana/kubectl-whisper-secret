@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/rewanth1997/kubectl-ccsecret/cmd"
+import "github.com/rewanth1997/kubectl-whisper-secret/cmd"
 
 func main() {
 	cmd.Execute()

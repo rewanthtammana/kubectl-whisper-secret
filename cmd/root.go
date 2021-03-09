@@ -27,25 +27,25 @@ var (
 	verboseFlag             bool
 	printOnlyFlag           bool
 	rootCmdDescriptionShort = "Create kubectl secrets by taking sensitive input from console"
-	rootCmdDescriptionLong  = `"kubectl ccsecret" allows users to create kubectl secrets by taking sensitive input from the console.
-More info: https://github.com/rewanth1997/kubectl-ccsecret`
+	rootCmdDescriptionLong  = `"kubectl whisper-secret" allows users to create kubectl secrets by taking sensitive input from the console.
+More info: https://github.com/rewanth1997/kubectl-whisper-secret`
 	rootCmdExamples = `
 Create generic secret in default namespace:
-$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
+$ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2
 
-Provide non-supported ccsecret flags/options after double hypen (--)
+Provide non-supported whisper-secret flags/options after double hypen (--)
 
 Create generic secret in test namespace:
-$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2 -- -n test
+$ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2 -- -n test
 
 More examples:
-$ kubectl ccsecret generic -h
-$ kubectl ccsecret docker-registry -h`
+$ kubectl whisper-secret generic -h
+$ kubectl whisper-secret docker-registry -h`
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:     "kubectl-ccsecret",
+	Use:     "kubectl-whisper-secret",
 	Short:   rootCmdDescriptionShort,
 	Long:    rootCmdDescriptionLong,
 	Example: rootCmdExamples,

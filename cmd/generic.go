@@ -22,22 +22,22 @@ import (
 	"github.com/spf13/cobra"
 	"strings"
 
-	"github.com/rewanth1997/kubectl-ccsecret/pkg/execCmd"
-	"github.com/rewanth1997/kubectl-ccsecret/pkg/stdin"
+	"github.com/rewanth1997/kubectl-whisper-secret/pkg/execCmd"
+	"github.com/rewanth1997/kubectl-whisper-secret/pkg/stdin"
 )
 
 var (
 	genericCmdDescriptionShort = "Create generic secrets by taking input from console"
-	genericCmdDescriptionLong  = `"kubectl ccsecret generic" takes secret values for given keys as input from user console 
-More info: https://github.com/rewanth1997/kubectl-ccsecret`
+	genericCmdDescriptionLong  = `"kubectl whisper-secret generic" takes secret values for given keys as input from user console 
+More info: https://github.com/rewanth1997/kubectl-whisper-secret`
 	genericCmdExamples = `
 Create generic secret in default namespace:
-$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
+$ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2
 	
-Provide non-supported ccsecret flags/options after double hypen (--)
+Provide non-supported whisper-secret flags/options after double hypen (--)
 
 Create generic secret in test namespace:
-$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2 -- -n test`
+$ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2 -- -n test`
 	fromLiteralArr []string
 )
 

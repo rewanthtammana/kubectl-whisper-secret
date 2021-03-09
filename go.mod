@@ -1,4 +1,4 @@
-module github.com/rewanth1997/kubectl-ccsecret
+module github.com/rewanth1997/kubectl-whisper-secret
 
 go 1.13
 

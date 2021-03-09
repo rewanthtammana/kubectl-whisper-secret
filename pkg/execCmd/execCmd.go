@@ -35,7 +35,7 @@ func Run(finalCmd string) (error, bytes.Buffer, bytes.Buffer) {
 	} else {
 		osError := fmt.Sprintf("Unrecognized OS: %s", runtime.GOOS)
 		var osStderrMessage bytes.Buffer
-		osStderrMessage.WriteString("Please create an issue here, https://github.com/rewanth1997/kubectl-ccsecret/issues")
+		osStderrMessage.WriteString("Please create an issue here, https://github.com/rewanth1997/kubectl-whisper-secret/issues")
 		return errors.New(osError), osStderrMessage, osStderrMessage
 	}
 

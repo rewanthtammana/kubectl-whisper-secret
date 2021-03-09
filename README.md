@@ -1,6 +1,6 @@
-# kubectl-ccsecret (create-console-secret)
+# kubectl-whisper-secret
 
-<h4 align="center">kubectl-ccsecret plugin/command allows users to create kubernetes secrets by taking sensitive input from the console to prevent information leakages via terminal history, shoulder surfing, etc</h4>
+<h4 align="center">kubectl-whisper-secret plugin allows users to create secrets with secure input prompt to prevent information leakages through terminal history, shoulder surfing attacks, etc</h4>
 
 ## Why to use
 
@@ -20,30 +20,30 @@ $ kubectl create secret docker-registry my-secret --docker-password s3cur3D0ck3r
 
 ### Proposed solution with examples
 
-`kubectl ccsecret` plugin prompts users to provide inputs for fields that might possibly contain sensitive information like `--from-literal` and `--docker-password`
+`kubectl whisper-secret` plugin prompts users to provide inputs for fields that might possibly contain sensitive information like `--from-literal` and `--docker-password`
 
 ```console
-$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
+$ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2
 Enter value for key1: ******
 Enter value for key2: ******
 secret/my-secret created
 ```
 
 ```console
-$ kubectl ccsecret docker-registry my-secret --docker-password -- -n test --docker-username admin
+$ kubectl whisper-secret docker-registry my-secret --docker-password -- -n test --docker-username admin
 Enter value for docker password: ******
 secret/my-secret created
 ```
 
 ```console
-$ kubectl ccsecret docker-registry my-secret --docker-password --verbose -- -n test --docker-username admin
+$ kubectl whisper-secret docker-registry my-secret --docker-password --verbose -- -n test --docker-username admin
 Enter value for docker password: ******
 [+] Command: kubectl create docker-registry my-secret --docker-password abcdef -n test --docker-username admin
 secret/my-secret created
 ```
 
 ```console
-$ kubectl ccsecret docker-registry my-secret --docker-password --print-only
+$ kubectl whisper-secret docker-registry my-secret --docker-password --print-only
 Enter value for docker password: ******
 [*] Command: kubectl create docker-registry my-secret --docker-password abcdef
 ```
@@ -51,26 +51,26 @@ Enter value for docker password: ******
 ## Usage
 
 ```console
-rewanth@ubuntu:~/go/src/kubectl-ccsecret$ kubectl ccsecret -h
-"kubectl ccsecret" creates kubectl secrets by taking sensitive input from console.
-More info: https://github.com/rewanth1997/kubectl-ccsecret
+rewanth@ubuntu:~/go/src/kubectl-whisper-secret$ kubectl whisper-secret -h
+"kubectl whisper-secret" creates kubectl secrets by taking sensitive input from console.
+More info: https://github.com/rewanth1997/kubectl-whisper-secret
 
 Usage:
-  kubectl-ccsecret [flags]
-  kubectl-ccsecret [command]
+  kubectl-whisper-secret [flags]
+  kubectl-whisper-secret [command]
 
 Examples:
 
 Create generic secret in default namespace:
-$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2
+$ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2
 
 Provide non-existing/unknown flags after double hypen (--)
 
 Create generic secret in test namespace:
-$ kubectl ccsecret generic my-secret --from-literal key1 --from-literal key2 -- -n test
+$ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2 -- -n test
 
 Create docker-registry secret in default namespace:
-$ kubectl ccsecret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL
+$ kubectl whisper-secret docker-registry my-secret --docker-password -- --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-email=DOCKER_EMAIL
 
 Available Commands:
   docker-registry Take docker-registry password input from console
@@ -78,8 +78,8 @@ Available Commands:
   help            Help about any command
 
 Flags:
-  -h, --help   help for kubectl-ccsecret
+  -h, --help   help for kubectl-whisper-secret
 
-Use "kubectl-ccsecret [command] --help" for more information about a command.
+Use "kubectl-whisper-secret [command] --help" for more information about a command.
 ```
 
