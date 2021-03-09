@@ -1,6 +1,20 @@
-# kubectl-whisper-secret
+<h1 align="center">kubectl-whisper-secret</h1>
 
 <h4 align="center">kubectl-whisper-secret plugin allows users to create secrets with secure input prompt to prevent information leakages through terminal history, shoulder surfing attacks, etc</h4>
+
+
+## Installation
+
+Installing with krew
+```console
+kubectl krew install whisper-secret
+```
+
+Installing with wget
+```console
+wget https://github.com/rewanth1997/kubectl-whisper-secret/releases/download/v1.1.0/kubectl-whisper-secret-Linux-x86_64.tar.gz
+sudo tar xvf kubectl-whisper-secret-Linux-x86_64.tar.gz -C /usr/bin/
+```
 
 ## Why to use
 
@@ -20,7 +34,7 @@ $ kubectl create secret docker-registry my-secret --docker-password s3cur3D0ck3r
 
 ### Proposed solution with examples
 
-`kubectl whisper-secret` plugin prompts users to provide inputs for fields that might possibly contain sensitive information like `--from-literal` and `--docker-password`
+`kubectl whisper-secret` plugin allows users to create secrets with secure input prompt for fields like `--from-literal` and `--docker-password` that contain sensitive information
 
 ```console
 $ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2
@@ -47,6 +61,32 @@ $ kubectl whisper-secret docker-registry my-secret --docker-password --print-onl
 Enter value for docker password: ******
 [*] Command: kubectl create docker-registry my-secret --docker-password abcdef
 ```
+
+## Developer build
+
+Build from Makefile
+```console
+make build
+```
+
+Build only for Linux
+```console
+make build-linux
+```
+
+Build with go
+```console
+go get ./...
+go build -o kubectl-whisper-secret main.go
+mv kubectl-whisper-secret /usr/bin
+```
+
+Cross platform builds with go
+```console
+go get ./...
+GOOS=windows GOARCH=amd64 go build -o kubectl-whisper-secret.exe main.go
+```
+
 
 ## Usage
 
