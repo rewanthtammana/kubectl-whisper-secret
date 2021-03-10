@@ -2,6 +2,17 @@
 
 <h4 align="center">kubectl-whisper-secret plugin allows users to create secrets with secure input prompt to prevent information leakages through terminal history, shoulder surfing attacks, etc</h4>
 
+<p align="center">
+  <a href="https://goreportcard.com/report/github.com/rewanth1997/kubectl-whisper-secret">
+    <img src="https://goreportcard.com/badge/github.com/rewanth1997/kubectl-whisper-secret">
+  </a>
+  <a href="https://github.com/rewanth1997/kubectl-whisper-secret/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg">
+  </a>
+  <!-- <a href="https://github.com/rewanth1997/kubectl-whisper-secret/releases">
+    <img src="https://img.shields.io/github/downloads/rewanth1997/kubectl-whisper-secret/total.svg?style=for-the-badge">
+  </a> -->
+</p>
 
 ## Installation
 
