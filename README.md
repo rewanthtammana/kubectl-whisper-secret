@@ -49,27 +49,27 @@ $ kubectl create secret docker-registry my-secret --docker-password s3cur3D0ck3r
 
 ```console
 $ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2
-Enter value for key1: ******
-Enter value for key2: ******
+Enter value for key1: 
+Enter value for key2: 
 secret/my-secret created
 ```
 
 ```console
 $ kubectl whisper-secret docker-registry my-secret --docker-password -- -n test --docker-username admin
-Enter value for docker password: ******
+Enter value for docker password: 
 secret/my-secret created
 ```
 
 ```console
 $ kubectl whisper-secret docker-registry my-secret --docker-password --verbose -- -n test --docker-username admin
-Enter value for docker password: ******
+Enter value for docker password: 
 [+] Command: kubectl create docker-registry my-secret --docker-password abcdef -n test --docker-username admin
 secret/my-secret created
 ```
 
 ```console
 $ kubectl whisper-secret docker-registry my-secret --docker-password --print-only
-Enter value for docker password: ******
+Enter value for docker password: 
 [*] Command: kubectl create docker-registry my-secret --docker-password abcdef
 ```
 
