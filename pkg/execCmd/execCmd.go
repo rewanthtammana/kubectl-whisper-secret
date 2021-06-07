@@ -32,6 +32,8 @@ func Run(finalCmd string) (error, bytes.Buffer, bytes.Buffer) {
 		execCmd = exec.Command("cmd", "/c", finalCmd)
 	} else if runtime.GOOS == "linux" {
 		execCmd = exec.Command("sh", "-c", finalCmd)
+	} else if runtime.GOOS == "darwin" {
+		execCmd = exec.Command("zsh", "-c", finalCmd)
 	} else {
 		osError := fmt.Sprintf("Unrecognized OS: %s", runtime.GOOS)
 		var osStderrMessage bytes.Buffer
