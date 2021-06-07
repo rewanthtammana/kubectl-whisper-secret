@@ -7,7 +7,7 @@ VERSION_SUFFIX := ""
 
 COMMIT  := $(shell git describe --always)
 PKGS    := $(shell go list ./...)
-REPO    := github.com/rewanth1997/kubectl-whisper-secret
+REPO    := github.com/rewanthtammana/kubectl-whisper-secret
 VERSION := v$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)$(VERSION_SUFFIX)
 LDFLAGS := -s -w -X $(REPO)/cmd.version=$(VERSION)
 

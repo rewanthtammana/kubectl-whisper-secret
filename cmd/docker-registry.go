@@ -22,15 +22,15 @@ import (
 	"github.com/spf13/cobra"
 	"strings"
 
-	"github.com/rewanth1997/kubectl-whisper-secret/pkg/execCmd"
-	"github.com/rewanth1997/kubectl-whisper-secret/pkg/stdin"
+	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/execCmd"
+	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/stdin"
 )
 
 var (
 	dockerPasswordFlag                bool
 	dockerRegistryCmdDescriptionShort = "Take docker-registry password input from console"
 	dockerRegistryCmdDescriptionLong  = `"kubectl whisper-secret docker-registry" takes docker-password value from console 
-More info: https://github.com/rewanth1997/kubectl-whisper-secret`
+More info: https://github.com/rewanthtammana/kubectl-whisper-secret`
 	dockerRegistryCmdExamples = `
 Provide non-supported whisper-secret flags/options after double hypen (--)
 

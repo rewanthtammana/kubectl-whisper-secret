@@ -28,7 +28,7 @@ var (
 	printOnlyFlag           bool
 	rootCmdDescriptionShort = "Create kubectl secrets by taking sensitive input from console"
 	rootCmdDescriptionLong  = `"kubectl whisper-secret" allows users to create kubectl secrets by taking sensitive input from the console.
-More info: https://github.com/rewanth1997/kubectl-whisper-secret`
+More info: https://github.com/rewanthtammana/kubectl-whisper-secret`
 	rootCmdExamples = `
 Create generic secret in default namespace:
 $ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2

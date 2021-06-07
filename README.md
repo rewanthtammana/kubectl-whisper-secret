@@ -3,14 +3,14 @@
 <h4 align="center">kubectl-whisper-secret plugin allows users to create secrets with secure input prompt to prevent information leakages through terminal history, shoulder surfing attacks, etc</h4>
 
 <p align="center">
-  <a href="https://goreportcard.com/report/github.com/rewanth1997/kubectl-whisper-secret">
-    <img src="https://goreportcard.com/badge/github.com/rewanth1997/kubectl-whisper-secret">
+  <a href="https://goreportcard.com/report/github.com/rewanthtammana/kubectl-whisper-secret">
+    <img src="https://goreportcard.com/badge/github.com/rewanthtammana/kubectl-whisper-secret">
   </a>
-  <a href="https://github.com/rewanth1997/kubectl-whisper-secret/blob/main/LICENSE">
+  <a href="https://github.com/rewanthtammana/kubectl-whisper-secret/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg">
   </a>
-  <!-- <a href="https://github.com/rewanth1997/kubectl-whisper-secret/releases">
-    <img src="https://img.shields.io/github/downloads/rewanth1997/kubectl-whisper-secret/total.svg?style=for-the-badge">
+  <!-- <a href="https://github.com/rewanthtammana/kubectl-whisper-secret/releases">
+    <img src="https://img.shields.io/github/downloads/rewanthtammana/kubectl-whisper-secret/total.svg?style=for-the-badge">
   </a> -->
 </p>
 
@@ -23,7 +23,7 @@ kubectl krew install whisper-secret
 
 Installing with wget
 ```console
-wget https://github.com/rewanth1997/kubectl-whisper-secret/releases/download/v1.1.0/kubectl-whisper-secret-Linux-x86_64.tar.gz
+wget https://github.com/rewanthtammana/kubectl-whisper-secret/releases/download/v1.1.0/kubectl-whisper-secret-Linux-x86_64.tar.gz
 sudo tar xvf kubectl-whisper-secret-Linux-x86_64.tar.gz -C /usr/bin/
 ```
 
@@ -104,7 +104,7 @@ GOOS=windows GOARCH=amd64 go build -o kubectl-whisper-secret.exe main.go
 ```console
 rewanth@ubuntu:~/go/src/kubectl-whisper-secret$ kubectl whisper-secret -h
 "kubectl whisper-secret" creates kubectl secrets by taking sensitive input from console.
-More info: https://github.com/rewanth1997/kubectl-whisper-secret
+More info: https://github.com/rewanthtammana/kubectl-whisper-secret
 
 Usage:
   kubectl-whisper-secret [flags]

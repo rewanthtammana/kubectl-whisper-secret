@@ -22,14 +22,14 @@ import (
 	"github.com/spf13/cobra"
 	"strings"
 
-	"github.com/rewanth1997/kubectl-whisper-secret/pkg/execCmd"
-	"github.com/rewanth1997/kubectl-whisper-secret/pkg/stdin"
+	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/execCmd"
+	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/stdin"
 )
 
 var (
 	genericCmdDescriptionShort = "Create generic secrets by taking input from console"
 	genericCmdDescriptionLong  = `"kubectl whisper-secret generic" takes secret values for given keys as input from user console 
-More info: https://github.com/rewanth1997/kubectl-whisper-secret`
+More info: https://github.com/rewanthtammana/kubectl-whisper-secret`
 	genericCmdExamples = `
 Create generic secret in default namespace:
 $ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal key2
