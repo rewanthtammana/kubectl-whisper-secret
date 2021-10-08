@@ -14,16 +14,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package stdin takes input from cli, built exclusively to read sensitive user input from cli
-package stdin
+// Package stdio provides handlers for reading and writing from/to stdio/stderr
+package stdio
 
 import (
-	"golang.org/x/crypto/ssh/terminal"
+	"fmt"
+	"os"
 	"syscall"
+
+	"golang.org/x/crypto/ssh/terminal"
 )
 
-// GetStdInput method takes user input from the cli
-func GetStdInput() string {
+var (
+	// DefaultOutput determines desired writer
+	DefaultOutput = os.Stderr
+)
+
+// Println wraps fmt.Println to write to DefaultOutput
+func Println(a ...interface{}) (int, error) {
+	return fmt.Fprintln(DefaultOutput, a...)
+}
+
+// Printf wraps fmt.Printf to write to DefaultOutput
+func Printf(format string, a ...interface{}) (int, error) {
+	return fmt.Fprintf(DefaultOutput, format, a...)
+}
+
+// ReadPassword method takes user input from the cli
+func ReadPassword() string {
 	byteInput, _ := terminal.ReadPassword(int(syscall.Stdin))
 	return string(byteInput)
 }

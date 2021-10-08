@@ -19,11 +19,12 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"strings"
 
+	"github.com/spf13/cobra"
+
 	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/execCmd"
-	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/stdin"
+	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/stdio"
 )
 
 var (
@@ -45,8 +46,8 @@ $ kubectl whisper-secret generic my-secret --from-literal key1 --from-literal ke
 func joinArgsWithKey(keyword string, argsArr []string) string {
 	output := ""
 	for _, key := range argsArr {
-		fmt.Println("Enter value for " + key + " : ")
-		output += fmt.Sprintf(" %s=%s=%s ", keyword, key, stdin.GetStdInput())
+		stdio.Println("Enter value for " + key + " : ")
+		output += fmt.Sprintf(" %s=%s=%s ", keyword, key, stdio.ReadPassword())
 	}
 	return output
 }
@@ -64,21 +65,21 @@ var genericCmd = &cobra.Command{
 		finalCmd := fmt.Sprintf("kubectl create secret generic %s %s %s", args[0], userDataWithArgs, remainingArgs)
 
 		if printOnlyFlag {
-			fmt.Printf("[*] Command: %s \n", finalCmd)
+			stdio.Printf("[*] Command: %s \n", finalCmd)
 			return
 		}
 
 		if verboseFlag {
-			fmt.Printf("[+] Command: %s \n", finalCmd)
+			stdio.Printf("[+] Command: %s \n", finalCmd)
 		}
 
 		err, stderr, out := execCmd.Run(finalCmd)
 		if err != nil {
-			fmt.Printf("%s\n%s\n", fmt.Sprint(err), stderr.String())
+			stdio.Printf("%s\n%s\n", fmt.Sprint(err), stderr.String())
 			return
 		}
 
-		fmt.Println(out.String())
+		fmt.Printf(out.String())
 	},
 }
 

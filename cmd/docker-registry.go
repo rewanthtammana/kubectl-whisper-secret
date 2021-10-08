@@ -19,11 +19,12 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"strings"
 
+	"github.com/spf13/cobra"
+
 	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/execCmd"
-	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/stdin"
+	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/stdio"
 )
 
 var (
@@ -52,8 +53,8 @@ var dockerRegistryCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if dockerPasswordFlag {
-			fmt.Println("Enter value for docker password: ")
-			dockerPassword = stdin.GetStdInput()
+			stdio.Println("Enter value for docker password: ")
+			dockerPassword = stdio.ReadPassword()
 			userDataWithArgs = fmt.Sprintf(" --docker-password %s ", dockerPassword)
 		}
 
@@ -61,17 +62,17 @@ var dockerRegistryCmd = &cobra.Command{
 		finalCmd := fmt.Sprintf("kubectl create secret docker-registry %s %s %s", args[0], userDataWithArgs, remainingArgs)
 
 		if printOnlyFlag {
-			fmt.Printf("[*] Command: %s \n", finalCmd)
+			stdio.Printf("[*] Command: %s \n", finalCmd)
 			return
 		}
 
 		if verboseFlag {
-			fmt.Printf("[+] Command: %s \n", finalCmd)
+			stdio.Printf("[+] Command: %s \n", finalCmd)
 		}
 
 		err, stderr, out := execCmd.Run(finalCmd)
 		if err != nil {
-			fmt.Printf("%s\n%s\n", fmt.Sprint(err), stderr.String())
+			stdio.Printf("%s\n%s\n", fmt.Sprint(err), stderr.String())
 			return
 		}
 

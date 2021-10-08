@@ -18,9 +18,10 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/rewanthtammana/kubectl-whisper-secret/pkg/stdio"
+	"github.com/spf13/cobra"
 )
 
 var (
@@ -61,7 +62,7 @@ func init() {}
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		stdio.Println(err)
 		os.Exit(1)
 	}
 }
